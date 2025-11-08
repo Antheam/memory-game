@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const BASE_URL = 'https://api.pexels.com/v1/search';
 
 const getRandomPage = () => Math.round(Math.random() * (10 - 1) + 1);
 
 const useGetImages = () => {
+    const [images, setImages] = useState([]);
+
     const buildUrl = () => {
         let url = new URL('https://api.pexels.com/v1/search');
         url.search = new URLSearchParams({
@@ -23,12 +25,16 @@ const useGetImages = () => {
             headers: {
                 Authorization: 'SV5y6V6aMIn7YWRxeniV2BlzxX1wzpaG4DirVslvmi5iOymsMMvsYiMP',
             },
-        });
+        })
+            .then(data => data.json())
+            .then(data => setImages(data.photos));
     };
 
     useEffect(() => {
         fetchPics();
     }, []);
+
+    return images;
 };
 
 export default useGetImages;

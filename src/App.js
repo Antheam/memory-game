@@ -3,7 +3,9 @@ import useGetImages from './hooks/useGetImages';
 // const BASE_URL = '/v1/search?query=nature&orientation=square';
 
 function App() {
-    useGetImages();
+    const images = useGetImages();
+
+    console.log({ images });
     return (
         <>
             <Background />
